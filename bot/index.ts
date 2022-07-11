@@ -80,9 +80,11 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens, invalidTokens: an
 
 function get_pending_arb(contract_address: string) {
   let provider = new ethers.providers.WebSocketProvider("ws://127.0.0.1:8548")
-  provider.on("pending", (tx) => {
-    console.log(tx);
-  })
+  while(true){
+    provider.on("pending", (tx) => {
+      console.log(tx);
+    })
+  }
 }
 
 async function main() {
