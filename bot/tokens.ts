@@ -18,6 +18,7 @@ const bscBaseTokens: Tokens = {
   usdt: { symbol: 'USDT', address: '0x55d398326f99059ff775485246999027b3197955' },
   busd: { symbol: 'BUSD', address: '0xe9e7cea3dedca5984780bafc599bd69add087d56' },
   usdc: { symbol: 'USDC', address: '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d' },
+  weth: { symbol: 'WETH', address: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8' },
 };
 
 const bscQuoteTokens: Tokens = require("./bscQuoteTokens.json");

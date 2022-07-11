@@ -5,7 +5,7 @@ import AsyncLock from 'async-lock';
 
 import { FlashBot } from '../typechain/FlashBot';
 import { Network, tryLoadPairs, getTokens } from './tokens';
-import { getBnbPrice } from './basetoken-price';
+import { getBnbPrice, getEthPrice } from './basetoken-price';
 import log from './log';
 import config from './config';
 
@@ -19,6 +19,8 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   bnb_price = await getBnbPrice();
   if (baseTokens.wbnb.address == address) {
     price = bnb_price;
+  }else if (baseTokens.weth.address == address){
+    price = await getEthPrice();
   }
 
   let profit = parseFloat(ethers.utils.formatEther(profitWei));

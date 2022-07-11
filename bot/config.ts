@@ -7,6 +7,7 @@ interface Config {
   gasPrice: BigNumber;
   gasLimit: BigNumberish;
   bscScanUrl: string;
+  ethScanUrl: string;
   concurrency: number;
 }
 
@@ -17,6 +18,9 @@ const gasLimit = 500000;
 const bscScanApiKey = 'CUR1A1E5G8D575SI6D4SS4RST613YFKSQ6'; // bscscan API key
 const bscScanUrl = `https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=${bscScanApiKey}`;
 
+const ethScanApiKey = 'F7Q7FPSGFUN6HYDU8Z3HIJH5D9YQXQYD5S';
+const ethScanUrl = `https://api.etherscan.io/api?module=stats&action=ethprice&apikey=${ethScanApiKey}`;
+
 const config: Config = {
   contractAddr: contractAddr,
   logLevel: 'info',
@@ -25,6 +29,7 @@ const config: Config = {
   gasPrice: gasPrice,
   gasLimit: gasLimit,
   bscScanUrl: bscScanUrl,
+  ethScanUrl: ethScanUrl
 };
 
 export default config;
