@@ -67,7 +67,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens, invalidTokens: an
           const receipt = await response.wait(1);
           log.info(`Tx: ${receipt.transactionHash}`);
         });
-      } catch (err) {
+      } catch (err: any) {
         if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
           return;
         }
@@ -78,9 +78,18 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens, invalidTokens: an
   };
 }
 
+function get_pending_arb(contract_address: string) {
+  let provider = new ethers.providers.WebSocketProvider("ws://127.0.0.1:8548")
+  provider.on("pending", (tx) => {
+    console.log(tx);
+  })
+}
+
 async function main() {
-  const pairs = await tryLoadPairs(Network.BSC);
+  get_pending_arb("");
+  /*
   const flashBot = (await ethers.getContractAt('FlashBot', config.contractAddr)) as FlashBot;
+  const pairs = await tryLoadPairs(Network.BSC);
   const [baseTokens] = getTokens(Network.BSC);
   let invalidTokens: any = []
   let new_pairs: any = [];
@@ -108,6 +117,7 @@ async function main() {
     }
     await sleep(1000);
   }
+  */
 }
 
 main()
