@@ -79,12 +79,27 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens, invalidTokens: an
 }
 
 function get_pending_arb(contract_address: string) {
-  let provider = new ethers.providers.WebSocketProvider("ws://127.0.0.1:8548")
-  while(true){
-    provider.on("pending", (tx) => {
-      console.log(tx);
-    })
-  }
+  var url = "ws://127.0.0.1:8548"
+
+  var customWsProvider = new ethers.providers.WebSocketProvider(url);
+  
+  customWsProvider.on("pending", (tx) => {
+    customWsProvider.getTransaction(tx).then(function (transaction) {
+      console.log(transaction);
+    });
+  });
+
+  customWsProvider._websocket.on("error", async () => {
+    console.log(`Unable to connect to ${url} retrying in 3s...`);
+    setTimeout(get_pending_arb, 3000);
+  });
+  customWsProvider._websocket.on("close", async (code: any) => {
+    console.log(
+      `Connection lost with code ${code}! Attempting reconnect in 3s...`
+    );
+    customWsProvider._websocket.terminate();
+    setTimeout(get_pending_arb, 3000);
+  });
 }
 
 async function main() {
