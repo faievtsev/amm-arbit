@@ -78,7 +78,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens, invalidTokens: an
   };
 }
 
-function get_pending_arb(contract_address: string) {
+async function get_pending_arb(contract_address: string) {
   var url = "ws://127.0.0.1:8548"
 
   var customWsProvider = new ethers.providers.WebSocketProvider(url);
@@ -103,7 +103,9 @@ function get_pending_arb(contract_address: string) {
 }
 
 async function main() {
-  get_pending_arb("");
+  while(true){
+    await get_pending_arb("");
+  }
   /*
   const flashBot = (await ethers.getContractAt('FlashBot', config.contractAddr)) as FlashBot;
   const pairs = await tryLoadPairs(Network.BSC);
